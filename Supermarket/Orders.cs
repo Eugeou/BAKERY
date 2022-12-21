@@ -23,12 +23,25 @@ namespace Supermarket
             InitializeComponent();
         }
 
-
+        private void showdata()
+        {
+            conn = new SQLConnection();
+            conn.OpenConnection();
+            String str = "SELECT * FROM BILL";
+            SqlCommand sqlCommand = new SqlCommand(str, conn.con);
+            sqlCommand.ExecuteNonQuery();
+            DataTable dt = new DataTable();
+            SqlDataAdapter da = new SqlDataAdapter(sqlCommand);
+            da.Fill(dt);
+            dataGridView_addOrder.DataSource = dt;
+            conn.CloseConnection();
+        }
+         
         private void getEmployee()
         {
             Employee.Text = Login.id + " | " + Login.name;
         }
-
+        
         private void getCustomer()
         {
             conn = new SQLConnection();
@@ -45,7 +58,7 @@ namespace Supermarket
             }
             conn.CloseConnection();
         }
-
+        
         private void getProduct()
         {
             conn = new SQLConnection();
@@ -80,7 +93,7 @@ namespace Supermarket
                 }
                 catch
                 {
-
+                    
                 }
             }
             else
@@ -93,7 +106,7 @@ namespace Supermarket
         {
             conn = new SQLConnection();
             conn.OpenConnection();
-            String str = "Select PRO_Price FROM PRODUCT WHERE PRO_ID = '" + Product.Text.Substring(0, 7) + "'";
+            String str = "Select PRO_Price FROM PRODUCT WHERE PRO_ID = '" + Product.Text.Substring(0,7) + "'";
             SqlCommand cmd = new SqlCommand(str, conn.con);
             SqlDataReader dr = cmd.ExecuteReader();
             if (dr.Read())
@@ -102,7 +115,7 @@ namespace Supermarket
             }
             conn.CloseConnection();
         }
-        private void getDateTime()
+        private void getDateTime() 
         {
             DateTime dateTime = DateTime.Now;
             datetime.Text = dateTime.ToString("dd/MM/yyyy");
@@ -170,7 +183,7 @@ namespace Supermarket
                     string query = "INSERT INTO BILL(B_ID, B_DATE, CUS_ID, EM_ID, B_PRICE) VALUES(@B_ID, @B_DATE, @CUS_ID, @EM_ID, @B_PRICE)";
                     SqlCommand sqlCommand = new SqlCommand(query, conn.con);
                     sqlCommand.Parameters.AddWithValue("@B_ID", id.Text);
-                    sqlCommand.Parameters.AddWithValue("@B_DATE", dateTime);
+                    sqlCommand.Parameters.AddWithValue("@B_DATE", dateTime.ToString("dd/MM/yyyy"));
                     sqlCommand.Parameters.AddWithValue("@CUS_ID", Customer.Text.Substring(0, 7));
                     sqlCommand.Parameters.AddWithValue("@EM_ID", Employee.Text.Substring(0, 7));
                     sqlCommand.Parameters.AddWithValue("@B_PRICE", grandTotal);
@@ -198,13 +211,11 @@ namespace Supermarket
                     row.Cells[3].Value = Quantity.Text;
                     row.Cells[4].Value = total;
                     dataGridView_addOrder.Rows.Add(row);
-                    string query = "INSERT INTO BILLINFO(B_ID, PRO_ID, QUANTITY, PRICE, TOTAL) VALUES(@B_ID, @PRO_ID, @QUANTITY, @PRICE, @TOTAL)";
+                    string query = "INSERT INTO BILLINFO(B_ID, PRO_ID, QUANTITY) VALUES(@B_ID, @PRO_ID, @QUANTITY)";
                     SqlCommand sqlCommand = new SqlCommand(query, conn.con);
                     sqlCommand.Parameters.AddWithValue("@B_ID", id.Text);
                     sqlCommand.Parameters.AddWithValue("@PRO_ID", Product.Text.Substring(0, 7));
                     sqlCommand.Parameters.AddWithValue("@QUANTITY", Quantity.Text);
-                    sqlCommand.Parameters.AddWithValue("@PRICE", price.Text);
-                    sqlCommand.Parameters.AddWithValue("@TOTAL", total);
                     sqlCommand.ExecuteNonQuery();
                 }
                 else
@@ -219,55 +230,46 @@ namespace Supermarket
                             dataGridView_addOrder.Rows[i].Cells[4].Value = Convert.ToInt32(dataGridView_addOrder.Rows[i].Cells[4].Value) + total;
                             dataGridView_addOrder.Rows[i].Cells[3].Value = Convert.ToInt32(dataGridView_addOrder.Rows[i].Cells[3].Value) + Convert.ToInt32(Quantity.Text);
                             n_Quantity = Convert.ToInt32(dataGridView_addOrder.Rows[i].Cells[3].Value);
-                            string updateQuantity_BillInfo = "UPDATE BILLINFO SET QUANTITY ='" + n_Quantity.ToString() + "' WHERE B_ID = '" + id.Text + " 'AND Pro_ID = '" + Product.Text.Substring(0, 7) + "'";
-                            string updateTotal_BillInfo = "UPDATE BILLINFO SET TOTAL ='" + (n_Quantity * Convert.ToInt32(price.Text)) + "' WHERE B_ID = '" + id.Text + " 'AND Pro_ID = '" + Product.Text.Substring(0, 7) + "'";
-                            SqlCommand updateQ_BillInfo = new SqlCommand(updateQuantity_BillInfo, conn.con);
-                            SqlCommand updateT_BillInfo = new SqlCommand(updateTotal_BillInfo, conn.con);
-                            updateQ_BillInfo.ExecuteNonQuery();
-                            updateT_BillInfo.ExecuteNonQuery();
+                            string query_BillInfo = "UPDATE BILLINFO SET QUANTITY ='" + n_Quantity.ToString() + "' WHERE B_ID = '" + id.Text + " 'AND Pro_ID = '" + Product.Text.Substring(0, 7) + "'";
+                            SqlCommand sqlCommand_Bill = new SqlCommand(query_BillInfo, conn.con);
+                            sqlCommand_Bill.ExecuteNonQuery();
                             break;
                         }
                     }
                 }
-            } catch (Exception ex)
+            }catch
             {
-                MessageBox.Show(ex.Message);
+
             }
         }
 
         private void delete_Click(object sender, EventArgs e)
         {
-            try
+            string checkBillInfo = "SELECT B_id,pro_id FROM BILLINFO WHERE B_ID='" + id.Text + "'and Pro_id='" + Product.Text.Substring(0, 7) + "'";
+            if (!CheckKey(checkBillInfo))
             {
-                string checkBillInfo = "SELECT B_id,pro_id FROM BILLINFO WHERE B_ID='" + id.Text + "'and Pro_id='" + Product.Text.Substring(0, 7) + "'";
-                if (!CheckKey(checkBillInfo))
+                MessageBox.Show("Không tìm thấy sản phẩm trong hóa đơn", "Thử lại", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            else
+            {
+                int _Price;
+                foreach (DataGridViewRow dataGridViewRow in dataGridView_addOrder.Rows)
                 {
-                    MessageBox.Show("Không tìm thấy sản phẩm trong hóa đơn", "Thử lại", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-                else
-                {
-                    int _Price;
-                    foreach (DataGridViewRow dataGridViewRow in dataGridView_addOrder.Rows)
+                    if (dataGridViewRow.Cells[0].Value.ToString() == Product.Text.Substring(0, 7))
                     {
-                        if (dataGridViewRow.Cells[0].Value.ToString() == Product.Text.Substring(0, 7))
-                        {
-                            _Price = Convert.ToInt32(dataGridViewRow.Cells[4].Value);
-                            dataGridView_addOrder.Rows.Remove(dataGridViewRow);
-                            grandTotal -= _Price;
-                            string query_BillInfo = "DELETE FROM BILLINFO WHERE B_ID = '" + id.Text + "'AND Pro_ID = '" + Product.Text.Substring(0, 7) + "'";
-                            SqlCommand sqlCommand_BillInfo = new SqlCommand(query_BillInfo, conn.con);
-                            sqlCommand_BillInfo.ExecuteNonQuery();
-                            string query_Bill = "UPDATE BILL SET B_PRICE='" + grandTotal + "' WHERE B_ID = '" + id.Text + "'";
-                            SqlCommand sqlCommand_Bill = new SqlCommand(query_Bill, conn.con);
-                            sqlCommand_Bill.ExecuteNonQuery();
-                            gTotal.Text = grandTotal + " VND";
-                            break;
-                        }
+                        _Price = Convert.ToInt32(dataGridViewRow.Cells[4].Value);
+                        dataGridView_addOrder.Rows.Remove(dataGridViewRow);
+                        grandTotal -= _Price;
+                        string query_BillInfo = "DELETE FROM BILLINFO WHERE B_ID = '" + id.Text + "'AND Pro_ID = '" + Product.Text.Substring(0, 7) + "'";
+                        SqlCommand sqlCommand_BillInfo = new SqlCommand(query_BillInfo, conn.con);
+                        sqlCommand_BillInfo.ExecuteNonQuery();
+                        string query_Bill = "UPDATE BILL SET B_PRICE='" + grandTotal + "' WHERE B_ID = '" + id.Text + "'";
+                        SqlCommand sqlCommand_Bill = new SqlCommand(query_Bill, conn.con);
+                        sqlCommand_Bill.ExecuteNonQuery();
+                        gTotal.Text = grandTotal + " VND";
+                        break;
                     }
                 }
-            } catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
             }
         }
         private void Quantity_KeyPress(object sender, KeyPressEventArgs e)
@@ -275,117 +277,87 @@ namespace Supermarket
             if (!Char.IsDigit(e.KeyChar) && !Char.IsControl(e.KeyChar))
                 e.Handled = true;
         }
-        private void clear()
-        {
-            Customer.Text = "";
-            price.Text = "";
-            Quantity.Clear();
-            Product.Text = "";
-        }
+        
         private void print_Click(object sender, EventArgs e)
         {
-            try
+            if (dataGridView_addOrder.Rows.Count == 0)
             {
-                if (dataGridView_addOrder.Rows.Count == 0)
+                MessageBox.Show("Chưa có sản phẩm nào trong hóa đơn", "Thử lại", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            else
+            {
+                DialogResult result = MessageBox.Show("Bạn muốn thanh toán ?", "THÔNG BÁO", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                if(result == DialogResult.Yes)
                 {
-                    MessageBox.Show("Chưa có sản phẩm nào trong hóa đơn", "Thử lại", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-                else
-                {
-                    DialogResult result = MessageBox.Show("Bạn muốn thanh toán ?", "THÔNG BÁO", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                    if (result == DialogResult.Yes)
+                    DialogResult _result = MessageBox.Show("Bạn muốn in hóa đơn ?", "THÔNG BÁO", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                    if( _result == DialogResult.Yes)
                     {
-                        DialogResult _result = MessageBox.Show("Bạn muốn in hóa đơn ?", "THÔNG BÁO", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                        if (_result == DialogResult.Yes)
-                        {
-                            BprintPreviewDialog.Document = BprintDocument;
-                            BprintPreviewDialog.ShowDialog();
-                        }
-                        else
-                        {
-                            
-                            MessageBox.Show("Bạn đã thanh toán thành công", "THÔNG BÁO", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        }
-                        clear();
-                        auto_id();
-                        dataGridView_addOrder.Rows.Clear();
+                        BprintPreviewDialog.Document = BprintDocument;
+                        BprintPreviewDialog.ShowDialog();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Bạn đã thanh toán thành công", "THÔNG BÁO", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
                 }
-            } catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
             }
         }
 
         private void BprintDocument_PrintPage(object sender, System.Drawing.Printing.PrintPageEventArgs e)
         {
-            try
+            string CUS_ADDRESS = "", CUS_PHONE = "";
+            string sql = "SELECT CUS_PHONE, CUS_ADDRESS FROM CUSTOMER WHERE CUS_ID = '" + Customer.Text.Substring(0, 7) + "'";
+            SqlCommand sqlCommand = new SqlCommand(sql, conn.con);
+            SqlDataReader dr = sqlCommand.ExecuteReader();
+            if (dr.Read())
             {
-                string CUS_ADDRESS = "", CUS_PHONE = "";
-                string sql = "SELECT CUS_PHONE, CUS_ADDRESS FROM CUSTOMER WHERE CUS_ID = '" + Customer.Text.Substring(0, 7) + "'";
-                SqlCommand sqlCommand = new SqlCommand(sql, conn.con);
-                SqlDataReader dr = sqlCommand.ExecuteReader();
-                if (dr.Read())
-                {
-                    CUS_PHONE = dr.GetValue(0).ToString();
-                    CUS_ADDRESS = dr.GetValue(1).ToString();
-                }
-                e.Graphics.DrawString("HÓA ĐƠN BÁN HÀNG", new Font("Arial", 14, FontStyle.Bold), Brushes.Black, new Point(320, 80));
-                e.Graphics.DrawString("Mã khách hàng: " + Customer.Text.Substring(0, 7), new Font("Arial", 12, FontStyle.Regular), Brushes.Black, new Point(80, 150));
-                e.Graphics.DrawString("Tên khách hàng: " + Customer.Text.Substring(10), new Font("Arial", 12, FontStyle.Regular), Brushes.Black, new Point(80, 180));
-                // Thực hiện truy vấn tìm số điện thoại và địa chỉ
-                e.Graphics.DrawString("Số điện thoại: " + CUS_PHONE.ToString(), new Font("Arial", 12, FontStyle.Regular), Brushes.Black, new Point(80, 210));
-                e.Graphics.DrawString("Địa chỉ: " + CUS_ADDRESS.ToString(), new Font("Arial", 12, FontStyle.Regular), Brushes.Black, new Point(80, 240));
-                e.Graphics.DrawString("Mã hóa đơn: " + id.Text, new Font("Arial", 12, FontStyle.Regular), Brushes.Black, new Point(520, 150));
-                e.Graphics.DrawString("Mã nhân viên: " + Employee.Text.Substring(0, 7), new Font("Arial", 12, FontStyle.Regular), Brushes.Black, new Point(520, 180));
-                e.Graphics.DrawString("Tên nhân viên: " + Employee.Text.Substring(10), new Font("Arial", 12, FontStyle.Regular), Brushes.Black, new Point(520, 210));
-                e.Graphics.DrawString("Ngày hóa đơn: " + datetime.Text, new Font("Arial", 12, FontStyle.Regular), Brushes.Black, new Point(520, 240));
-                e.Graphics.DrawString("Mã sản phẩm", new Font("Arial", 12, FontStyle.Regular), Brushes.Black, new Point(80, 310));
-                e.Graphics.DrawString("Tên sản phẩm", new Font("Arial", 12, FontStyle.Regular), Brushes.Black, new Point(230, 310));
-                e.Graphics.DrawString("Đơn giá", new Font("Arial", 12, FontStyle.Regular), Brushes.Black, new Point(430, 310));
-                e.Graphics.DrawString("Số lượng", new Font("Arial", 12, FontStyle.Regular), Brushes.Black, new Point(550, 310));
-                e.Graphics.DrawString("Thành tiền", new Font("Arial", 12, FontStyle.Regular), Brushes.Black, new Point(670, 310));
-                int x = 360;
-                for (int i = 0; i < dataGridView_addOrder.Rows.Count; i++)
-                {
-                    e.Graphics.DrawString(dataGridView_addOrder.Rows[i].Cells[0].Value.ToString(), new Font("Arial", 12, FontStyle.Regular), Brushes.Black, new Point(80, x));
-                    e.Graphics.DrawString(dataGridView_addOrder.Rows[i].Cells[1].Value.ToString(), new Font("Arial", 12, FontStyle.Regular), Brushes.Black, new Point(230, x));
-                    e.Graphics.DrawString(dataGridView_addOrder.Rows[i].Cells[2].Value.ToString(), new Font("Arial", 12, FontStyle.Regular), Brushes.Black, new Point(430, x));
-                    e.Graphics.DrawString(dataGridView_addOrder.Rows[i].Cells[3].Value.ToString(), new Font("Arial", 12, FontStyle.Regular), Brushes.Black, new Point(550, x));
-                    e.Graphics.DrawString(dataGridView_addOrder.Rows[i].Cells[4].Value.ToString(), new Font("Arial", 12, FontStyle.Regular), Brushes.Black, new Point(670, x));
-                    x += 40;
-                }
-                e.Graphics.DrawString("Thành tiền:   " + gTotal.Text, new Font("Arial", 14, FontStyle.Bold), Brushes.Black, new Point(520, x + 50));
+                CUS_PHONE = dr.GetValue(0).ToString();
+                CUS_ADDRESS = dr.GetValue(1).ToString();
             }
-            catch (Exception ex)
+            e.Graphics.DrawString("HÓA ĐƠN BÁN HÀNG", new Font("Arial", 14, FontStyle.Bold), Brushes.Black, new Point(320,80));
+            e.Graphics.DrawString("Mã khách hàng: " + Customer.Text.Substring(0,7), new Font("Arial", 12, FontStyle.Regular), Brushes.Black, new Point(80, 150));
+            e.Graphics.DrawString("Tên khách hàng: " + Customer.Text.Substring(10), new Font("Arial", 12, FontStyle.Regular), Brushes.Black, new Point(80,180));
+            // Thực hiện truy vấn tìm số điện thoại và địa chỉ
+            e.Graphics.DrawString("Số điện thoại: " + CUS_PHONE.ToString(), new Font("Arial", 12, FontStyle.Regular), Brushes.Black, new Point(80, 210));
+            e.Graphics.DrawString("Địa chỉ: " + CUS_ADDRESS.ToString(), new Font("Arial", 12, FontStyle.Regular), Brushes.Black, new Point(80, 240));
+            e.Graphics.DrawString("Mã hóa đơn: " + id.Text, new Font("Arial", 12, FontStyle.Regular), Brushes.Black, new Point(520, 150));
+            e.Graphics.DrawString("Mã nhân viên: " + Employee.Text.Substring(0,7), new Font("Arial", 12, FontStyle.Regular), Brushes.Black, new Point(520, 180));
+            e.Graphics.DrawString("Tên nhân viên: " + Employee.Text.Substring(10), new Font("Arial", 12, FontStyle.Regular), Brushes.Black, new Point(520, 210));
+            e.Graphics.DrawString("Ngày hóa đơn: " + datetime.Text, new Font("Arial", 12, FontStyle.Regular), Brushes.Black, new Point(520, 240));
+            e.Graphics.DrawString("Mã sản phẩm" , new Font("Arial", 12, FontStyle.Regular), Brushes.Black, new Point(80, 310));
+            e.Graphics.DrawString("Tên sản phẩm", new Font("Arial", 12, FontStyle.Regular), Brushes.Black, new Point(230, 310));
+            e.Graphics.DrawString("Đơn giá", new Font("Arial", 12, FontStyle.Regular), Brushes.Black, new Point(430, 310));
+            e.Graphics.DrawString("Số lượng", new Font("Arial", 12, FontStyle.Regular), Brushes.Black, new Point(550, 310));
+            e.Graphics.DrawString("Thành tiền" , new Font("Arial", 12, FontStyle.Regular), Brushes.Black, new Point(670, 310));
+            int x = 360;
+            for(int i = 0; i < dataGridView_addOrder.Rows.Count; i++)
             {
-                MessageBox.Show(ex.Message);
+                e.Graphics.DrawString(dataGridView_addOrder.Rows[i].Cells[0].Value.ToString(), new Font("Arial", 12, FontStyle.Regular), Brushes.Black, new Point(80, x));
+                e.Graphics.DrawString(dataGridView_addOrder.Rows[i].Cells[1].Value.ToString(), new Font("Arial", 12, FontStyle.Regular), Brushes.Black, new Point(230, x));
+                e.Graphics.DrawString(dataGridView_addOrder.Rows[i].Cells[2].Value.ToString(), new Font("Arial", 12, FontStyle.Regular), Brushes.Black, new Point(430, x));
+                e.Graphics.DrawString(dataGridView_addOrder.Rows[i].Cells[3].Value.ToString(), new Font("Arial", 12, FontStyle.Regular), Brushes.Black, new Point(550, x));
+                e.Graphics.DrawString(dataGridView_addOrder.Rows[i].Cells[4].Value.ToString(), new Font("Arial", 12, FontStyle.Regular), Brushes.Black, new Point(670, x));
+                x += 40;
             }
-
+            e.Graphics.DrawString("Thành tiền:   " + gTotal.Text, new Font("Arial", 14, FontStyle.Bold), Brushes.Black, new Point(520, x + 50));
         }
+
         private void Exit_Click(object sender, EventArgs e)
         {
-            try
+            DialogResult _result = MessageBox.Show("Bạn muốn thoát ?", "THÔNG BÁO", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if( _result == DialogResult.Yes)
             {
-                DialogResult _result = MessageBox.Show("Bạn muốn thoát ?", "THÔNG BÁO", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                if (_result == DialogResult.Yes)
+                string checkBill = "SELECT B_ID FROM BILL WHERE B_ID= '" + id.Text + "'";
+                if (CheckKey(checkBill))
                 {
-                    string checkBill = "SELECT B_ID FROM BILL WHERE B_ID= '" + id.Text + "'";
-                    if (CheckKey(checkBill))
-                    {
-                        // Nếu thoát khi đã từng thêm sản phẩm mà chưa thanh toán csdl sẽ thêm mã hóa đơn -> xử lí tránh trường hợp này.
-                        string query_BillInfo = "DELETE FROM BILL WHERE B_ID = '" + id.Text + "'AND B_Price = '" + 0 + "'";
-                        SqlCommand sqlCommand_BillInfo = new SqlCommand(query_BillInfo, conn.con);
-                        sqlCommand_BillInfo.ExecuteNonQuery();
-                    }
-                    this.Hide();
-                    Login login = new Login();
-                    login.ShowDialog();
+                    // Nếu thoát khi đã từng thêm sản phẩm mà chưa thanh toán csdl sẽ thêm mã hóa đơn -> xử lí tránh trường hợp này.
+                    string query_BillInfo = "DELETE FROM BILL WHERE B_ID = '" + id.Text + "'AND B_Price = '" + 0 + "'";
+                    SqlCommand sqlCommand_BillInfo = new SqlCommand(query_BillInfo, conn.con);
+                    sqlCommand_BillInfo.ExecuteNonQuery();
                 }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
+                this.Hide();
+                Login login = new Login();
+                login.ShowDialog();
             }
         }
     }

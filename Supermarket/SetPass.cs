@@ -29,60 +29,39 @@ namespace Supermarket
 
         private void Save_Click(object sender, EventArgs e)
         {
-            try
+            if(Convert.ToInt32(Code.Text) == SendEmail.code)
             {
-                if (Convert.ToInt32(Code.Text) == SendEmail.code)
+                if(N_Pass.Text == CN_Pass.Text)
                 {
-                    if (N_Pass.Text == CN_Pass.Text)
+                    string query = "UPDATE EMPLOYEE SET EM_PASSWORD ='" + N_Pass.Text + "' WHERE EM_USERNAME = '" + SendEmail.username + "'and EM_EMAIL='" + SendEmail.email + "'";
+                    try
                     {
-                        string query = "UPDATE EMPLOYEE SET EM_PASSWORD ='" + N_Pass.Text + "' WHERE EM_USERNAME = '" + SendEmail.username + "'and EM_EMAIL='" + SendEmail.email + "'";
-                        try
-                        {
-                            conn.OpenConnection();
-                            SqlCommand sqlCommand = new SqlCommand(query, conn.con);
-                            sqlCommand.ExecuteNonQuery();
-                            MessageBox.Show("Đã thay đổi mật khẩu");
-                            this.Hide();
-                            Login login = new Login();
-                            login.ShowDialog();
-                        }
-                        catch (Exception ex)
-                        {
-                            MessageBox.Show(ex.Message);
-                        }
-                        finally
-                        {
-                            conn.CloseConnection();
-                        }
+                        conn.OpenConnection();
+                        SqlCommand sqlCommand = new SqlCommand(query, conn.con);
+                        sqlCommand.ExecuteNonQuery();
+                        MessageBox.Show("Đã thay đổi mật khẩu");
+                        this.Hide();
+                        Login login = new Login();
+                        login.ShowDialog();
                     }
-                    else
+                    catch(Exception ex)
                     {
-                        MessageBox.Show("Mật khẩu xác nhận không chính xác", "Thử lại", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show(ex.Message);
+                    }
+                    finally
+                    {
+                        conn.CloseConnection();
                     }
                 }
                 else
                 {
-                    MessageBox.Show("Mã xác nhận không chính xác", "Thử lại", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Mật khẩu xác nhận không chính xác", "Thử lại", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
-            }catch(Exception ex)
-            {
-                MessageBox.Show(ex.Message);
             }
-        }
-
-        private void Code_Click(object sender, EventArgs e)
-        {
-            Code.Clear();
-        }
-
-        private void N_Pass_Click(object sender, EventArgs e)
-        {
-            N_Pass.Clear(); 
-        }
-
-        private void CN_Pass_Click(object sender, EventArgs e)
-        {
-            CN_Pass.Clear();
+            else
+            {
+                MessageBox.Show("Mã xác nhận không chính xác", "Thử lại", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }

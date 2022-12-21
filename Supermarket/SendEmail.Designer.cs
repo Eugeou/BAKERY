@@ -69,7 +69,6 @@
             this.Email.TabIndex = 10;
             this.Email.Text = "Địa chỉ mail";
             this.Email.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.Email.Click += new System.EventHandler(this.Email_Click);
             // 
             // Save
             // 
@@ -94,7 +93,6 @@
             this.UserName.TabIndex = 8;
             this.UserName.Text = "Tên đăng nhập";
             this.UserName.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.UserName.Click += new System.EventHandler(this.UserName_Click);
             // 
             // SendEmail
             // 

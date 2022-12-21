@@ -38,45 +38,39 @@ namespace Supermarket
         }
         private void Save_Click(object sender, EventArgs e)
         {
-            try
+            string sql = "SELECT EM_USERNAME, EM_EMAIL FROM EMPLOYEE WHERE EM_USERNAME= '" + UserName.Text + "'and EM_EMAIL='" + Email.Text + "'";
+            if (CheckKey(sql))
             {
-                string sql = "SELECT EM_USERNAME, EM_EMAIL FROM EMPLOYEE WHERE EM_USERNAME= '" + UserName.Text + "'and EM_EMAIL='" + Email.Text + "'";
-                if (CheckKey(sql))
-                {
-                    username = UserName.Text;
-                    email = Email.Text;
-                    Random random = new Random();
-                    code = random.Next(100000, 1000000);
-                    MailMessage mailMessage = new MailMessage();
-                    mailMessage.To.Add(Email.Text);
-                    mailMessage.From = new MailAddress("sonle102003@gmail.com");
-                    mailMessage.Subject = "Gửi mã xác nhận mật khẩu";
-                    mailMessage.Body = code.ToString();
+                username = UserName.Text;
+                email = Email.Text;
+                Random random = new Random();
+                code = random.Next(100000, 1000000);
+                MailMessage mailMessage = new MailMessage();
+                mailMessage.To.Add(Email.Text);
+                mailMessage.From = new MailAddress("sonle102003@gmail.com");
+                mailMessage.Subject = "Gửi mã xác nhận mật khẩu";
+                mailMessage.Body = code.ToString();
 
-                    SmtpClient smtpClient = new SmtpClient("smtp.gmail.com");
-                    smtpClient.EnableSsl = true;
-                    smtpClient.Port = 587;
-                    smtpClient.DeliveryMethod = SmtpDeliveryMethod.Network;
-                    smtpClient.Credentials = new NetworkCredential("sonle102003@gmail.com", "prnifdmglzmlqxeg");
-                    try
-                    {
-                        smtpClient.Send(mailMessage);
-                        MessageBox.Show("Đã gửi mã xác nhận");
-                        SetPass setNewPass = new SetPass();
-                        setNewPass.Show();
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show(ex.Message);
-                    }
-                }
-                else
+                SmtpClient smtpClient = new SmtpClient("smtp.gmail.com");
+                smtpClient.EnableSsl = true;
+                smtpClient.Port = 587;
+                smtpClient.DeliveryMethod = SmtpDeliveryMethod.Network;
+                smtpClient.Credentials = new NetworkCredential("sonle102003@gmail.com", "prnifdmglzmlqxeg");
+                try
                 {
-                    MessageBox.Show("Không tìm thấy thông tin", "Thử lại", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    smtpClient.Send(mailMessage);
+                    MessageBox.Show("Đã gửi mã xác nhận");
+                    SetPass setNewPass = new SetPass();
+                    setNewPass.Show();
                 }
-            }catch(Exception ex)
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+            }
+            else
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show("Không tìm thấy thông tin", "Thử lại", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -85,16 +79,6 @@ namespace Supermarket
             this.Hide();
             Login login = new Login();
             login.ShowDialog();
-        }
-
-        private void UserName_Click(object sender, EventArgs e)
-        {
-            UserName.Clear();
-        }
-
-        private void Email_Click(object sender, EventArgs e)
-        {
-            Email.Clear();
         }
     }
 }

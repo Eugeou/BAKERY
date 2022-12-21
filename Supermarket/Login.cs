@@ -15,9 +15,7 @@ namespace Supermarket
 {
     public partial class Login : Form
     {
-        public static string name { get; set; }
-        public static string id { get; set; }
-        SQLConnection SQLConnection = new SQLConnection();
+        
         SqlCommand cmd = new SqlCommand();
         DataTable data = new DataTable();
         public Login()
@@ -27,40 +25,42 @@ namespace Supermarket
 
         private void Dangnhap_Click(object sender, EventArgs e)
         {
-            string position = "NV";
-            try
-            {
-                if(username.Text == "" || password.Text == "")
-                {
-                    MessageBox.Show("Thông tin đăng nhập không đầy đủ", "Thử lại", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-                else
-                {
-                    SQLConnection.OpenConnection();
-                    cmd = SQLConnection.con.CreateCommand();
-                    cmd.CommandType = CommandType.Text;
-                    cmd.CommandText = "Select * From EMPLOYEE Where EM_USERNAME = '" + username.Text + "' and EM_PASSWORD = '" + password.Text + "' and EM_POSITION = '" + position + "'" ;
-                    cmd.ExecuteNonQuery();
-                    SqlDataReader sqlDataReader = cmd.ExecuteReader();
 
-                    if (sqlDataReader.Read())
-                    {
-                        id = sqlDataReader["EM_ID"].ToString();
-                        name = sqlDataReader["EM_NAME"].ToString();
-                        this.Hide();
-                        Orders orders = new Orders();
-                        orders.ShowDialog();
-                    }
-                    else
-                    {
-                        MessageBox.Show("Thông tin đăng nhập không chính xác", "Thử lại", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
-                    SQLConnection.CloseConnection();
-                }
-            }catch(Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
+            this.Hide();
+            Home home = new Home();
+            home.ShowDialog();
+            //try
+            //{
+            //    if (username.Text == "" || password.Text == "")
+            //    {
+            //        MessageBox.Show("Thông tin đăng nhập không đầy đủ", "Thử lại", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //    }
+            //    else
+            //    {
+            //        SQLConnection.OpenConnection();
+            //        cmd = SQLConnection.con.CreateCommand();
+            //        cmd.CommandType = CommandType.Text;
+            //        cmd.CommandText = "Select * From EMPLOYEE Where EM_USERNAME = '" + username.Text + "' and EM_PASSWORD = '" + password.Text + "'";
+            //        cmd.ExecuteNonQuery();
+            //        SqlDataReader sqlDataReader = cmd.ExecuteReader();
+
+            //        if (sqlDataReader.Read())
+            //        {
+            //            this.Hide();
+            //            Home home = new Home();
+            //            home.ShowDialog();
+            //        }
+            //        else
+            //        {
+            //            MessageBox.Show("Thông tin đăng nhập không chính xác", "Thử lại", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //        }
+            //        SQLConnection.CloseConnection();
+            //    }
+            //}
+            //catch (Exception ex)
+            //{
+            //    MessageBox.Show(ex.Message);
+            //}
 
         }
 
@@ -109,39 +109,42 @@ namespace Supermarket
 
         private void Dangnhap2_Click(object sender, EventArgs e)
         {
-            string position = "QTV";
-            try
-            {
-                if (username.Text == "Tên đăng nhập" || password.Text == "Mật khẩu")
-                {
-                    MessageBox.Show("Thông tin đăng nhập không đầy đủ", "Thử lại", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-                else
-                {
-                    SQLConnection.OpenConnection();
-                    cmd = SQLConnection.con.CreateCommand();
-                    cmd.CommandType = CommandType.Text;
-                    cmd.CommandText = "Select * From EMPLOYEE Where EM_USERNAME = '" + username.Text + "' and EM_PASSWORD = '" + password.Text + "' and EM_POSITION = '" + position + "'";
-                    cmd.ExecuteNonQuery();
-                    SqlDataReader sqlDataReader = cmd.ExecuteReader();
+            //try
+            //{
+            //    if (username.Text == "Tên đăng nhập" || password.Text == "Mật khẩu")
+            //    {
+            //        MessageBox.Show("Thông tin đăng nhập không đầy đủ", "Thử lại", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //    }
+            //    else
+            //    {
+            //        SQLConnection.OpenConnection();
+            //        cmd = SQLConnection.con.CreateCommand();
+            //        cmd.CommandType = CommandType.Text;
+            //        cmd.CommandText = "Select * From ADMIN Where AD_USERNAME = '" + username.Text + "' and AD_PASSWORD = '" + password.Text + "'";
+            //        cmd.ExecuteNonQuery();
+            //        SqlDataReader sqlDataReader = cmd.ExecuteReader();
 
-                    if (sqlDataReader.Read())
-                    {
-                        this.Hide();
-                        Home home = new Home();
-                        home.ShowDialog();
-                    }
-                    else
-                    {
-                        MessageBox.Show("Thông tin đăng nhập không chính xác", "Thử lại", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
-                    SQLConnection.CloseConnection();
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
+            this.Hide();
+            Home home = new Home();
+            home.ShowDialog();
+
+                    //if (sqlDataReader.Read())
+                    //{
+                    //    this.Hide();
+                    //    Home home = new Home();
+                    //    home.ShowDialog();
+                    //}
+                    //else
+                    //{
+                    //    MessageBox.Show("Thông tin đăng nhập không chính xác", "Thử lại", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    //}
+                    //SQLConnection.CloseConnection();
+            //    }
+            //}
+            //catch (Exception ex)
+            //{
+            //    MessageBox.Show(ex.Message);
+            //}
         }
 
         private void userlogin_Click(object sender, EventArgs e)
@@ -157,10 +160,9 @@ namespace Supermarket
             signUp.ShowDialog();
         }
 
-        private void ForgotPass_Click(object sender, EventArgs e)
+        private void username_TextChanged(object sender, EventArgs e)
         {
-            SendEmail send = new SendEmail();
-            send.ShowDialog();
+
         }
     }
 }

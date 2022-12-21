@@ -59,7 +59,6 @@
             this.CN_Pass.TabIndex = 14;
             this.CN_Pass.Text = "Xác nhận mật khẩu mới";
             this.CN_Pass.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.CN_Pass.Click += new System.EventHandler(this.CN_Pass_Click);
             // 
             // Save
             // 
@@ -84,7 +83,6 @@
             this.N_Pass.TabIndex = 12;
             this.N_Pass.Text = "Mật khẩu mới";
             this.N_Pass.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.N_Pass.Click += new System.EventHandler(this.N_Pass_Click);
             // 
             // Code
             // 
@@ -96,7 +94,6 @@
             this.Code.TabIndex = 16;
             this.Code.Text = "Mã xác nhận";
             this.Code.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.Code.Click += new System.EventHandler(this.Code_Click);
             // 
             // label1
             // 

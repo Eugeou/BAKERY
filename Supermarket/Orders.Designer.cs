@@ -170,10 +170,9 @@
             // 
             // AddOrder
             // 
-            this.AddOrder.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.AddOrder.Location = new System.Drawing.Point(673, 310);
+            this.AddOrder.Location = new System.Drawing.Point(673, 312);
             this.AddOrder.Name = "AddOrder";
-            this.AddOrder.Size = new System.Drawing.Size(110, 36);
+            this.AddOrder.Size = new System.Drawing.Size(110, 40);
             this.AddOrder.TabIndex = 14;
             this.AddOrder.Text = "Thêm";
             this.AddOrder.UseVisualStyleBackColor = true;
@@ -181,10 +180,9 @@
             // 
             // delete
             // 
-            this.delete.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.delete.Location = new System.Drawing.Point(805, 310);
+            this.delete.Location = new System.Drawing.Point(805, 312);
             this.delete.Name = "delete";
-            this.delete.Size = new System.Drawing.Size(110, 37);
+            this.delete.Size = new System.Drawing.Size(110, 40);
             this.delete.TabIndex = 15;
             this.delete.Text = "Xóa";
             this.delete.UseVisualStyleBackColor = true;
@@ -192,10 +190,9 @@
             // 
             // print
             // 
-            this.print.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.print.Location = new System.Drawing.Point(935, 310);
+            this.print.Location = new System.Drawing.Point(935, 312);
             this.print.Name = "print";
-            this.print.Size = new System.Drawing.Size(130, 37);
+            this.print.Size = new System.Drawing.Size(130, 40);
             this.print.TabIndex = 16;
             this.print.Text = "Thanh toán";
             this.print.UseVisualStyleBackColor = true;
@@ -204,7 +201,7 @@
             // dataGridView_addOrder
             // 
             this.dataGridView_addOrder.AllowUserToAddRows = false;
-            this.dataGridView_addOrder.AllowUserToOrderColumns = true;
+            this.dataGridView_addOrder.AllowUserToDeleteRows = false;
             this.dataGridView_addOrder.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView_addOrder.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Masp,
@@ -212,8 +209,9 @@
             this.Dongia,
             this.Soluong,
             this.Thanhtien});
-            this.dataGridView_addOrder.Location = new System.Drawing.Point(55, 392);
+            this.dataGridView_addOrder.Location = new System.Drawing.Point(55, 368);
             this.dataGridView_addOrder.Name = "dataGridView_addOrder";
+            this.dataGridView_addOrder.ReadOnly = true;
             this.dataGridView_addOrder.RowHeadersWidth = 51;
             this.dataGridView_addOrder.RowTemplate.Height = 24;
             this.dataGridView_addOrder.Size = new System.Drawing.Size(1093, 337);
@@ -224,6 +222,7 @@
             this.Masp.HeaderText = "Mã sản phẩm";
             this.Masp.MinimumWidth = 6;
             this.Masp.Name = "Masp";
+            this.Masp.ReadOnly = true;
             this.Masp.Width = 125;
             // 
             // Tensp
@@ -231,6 +230,7 @@
             this.Tensp.HeaderText = "Tên sản phẩm";
             this.Tensp.MinimumWidth = 6;
             this.Tensp.Name = "Tensp";
+            this.Tensp.ReadOnly = true;
             this.Tensp.Width = 125;
             // 
             // Dongia
@@ -238,6 +238,7 @@
             this.Dongia.HeaderText = "Đơn giá";
             this.Dongia.MinimumWidth = 6;
             this.Dongia.Name = "Dongia";
+            this.Dongia.ReadOnly = true;
             this.Dongia.Width = 125;
             // 
             // Soluong
@@ -245,6 +246,7 @@
             this.Soluong.HeaderText = "Số lượng";
             this.Soluong.MinimumWidth = 6;
             this.Soluong.Name = "Soluong";
+            this.Soluong.ReadOnly = true;
             this.Soluong.Width = 125;
             // 
             // Thanhtien
@@ -252,13 +254,14 @@
             this.Thanhtien.HeaderText = "Thành tiền";
             this.Thanhtien.MinimumWidth = 6;
             this.Thanhtien.Name = "Thanhtien";
+            this.Thanhtien.ReadOnly = true;
             this.Thanhtien.Width = 125;
             // 
             // gTotal
             // 
             this.gTotal.AutoSize = true;
             this.gTotal.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.gTotal.Location = new System.Drawing.Point(936, 750);
+            this.gTotal.Location = new System.Drawing.Point(936, 726);
             this.gTotal.Name = "gTotal";
             this.gTotal.Size = new System.Drawing.Size(0, 28);
             this.gTotal.TabIndex = 19;
@@ -353,7 +356,7 @@
             // 
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.Location = new System.Drawing.Point(800, 750);
+            this.label8.Location = new System.Drawing.Point(800, 726);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(115, 28);
             this.label8.TabIndex = 27;
@@ -361,10 +364,9 @@
             // 
             // Exit
             // 
-            this.Exit.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Exit.Location = new System.Drawing.Point(134, 744);
+            this.Exit.Location = new System.Drawing.Point(118, 724);
             this.Exit.Name = "Exit";
-            this.Exit.Size = new System.Drawing.Size(140, 44);
+            this.Exit.Size = new System.Drawing.Size(110, 40);
             this.Exit.TabIndex = 28;
             this.Exit.Text = "Thoát";
             this.Exit.UseVisualStyleBackColor = true;
@@ -375,7 +377,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(1200, 850);
+            this.ClientSize = new System.Drawing.Size(1200, 800);
             this.Controls.Add(this.Exit);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.panel4);

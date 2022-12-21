@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Data.SqlClient;
 
 namespace Supermarket
 {
@@ -13,7 +13,7 @@ namespace Supermarket
 
         public DbConnection()
         {
-            connectionString = @"Data Source=DESKTOP-MV4COEO\SQLEXPRESS; Initial Catalog = BAKERY; Integrated Security = True";
+            connectionString = @"Server=DESKTOP-3O8LIHB\SQLEXPRESS01; DataBase=BAKERY; Integrated Security=true";
         }
 
         protected SqlConnection GetConnection()

@@ -9,19 +9,21 @@ namespace Supermarket
 {
     public class SQLConnection
     {
-
         public SqlConnection con;
         public SQLConnection()
         {
-
             try
             {
-                con = new SqlConnection(@"Data Source=DESKTOP-MV4COEO\SQLEXPRESS; Initial Catalog = BAKERY; Integrated Security = True");
+                con = new SqlConnection(@"Data Source=DESKTOP-3O8LIHB\SQLEXPRESS01; Initial Catalog = BAKERY; Integrated Security = True");
             }
             catch
             {
                 return;
             }
+        }
+        protected SqlConnection GetConnection()
+        {
+            return con;
         }
         public void OpenConnection()
         {
@@ -38,5 +40,7 @@ namespace Supermarket
         {
             con.Close();
         }
+        
+
     }
 }

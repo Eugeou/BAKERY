@@ -8,7 +8,7 @@ using System.Globalization;
 
 namespace Supermarket
 {
-
+    
 
     public struct RevenueByDate
     {
@@ -18,21 +18,21 @@ namespace Supermarket
 
     public class DBLogic : DbConnection
     {
-
+        
         //Properties
         private DateTime startdate;
         private DateTime enddate;
         private int NumsOfDays;
         public int NumCustomer { get; set; }
         public int NumSupplier { get; set; }
-        public int NumProduct { get; set; }
-        public List<KeyValuePair<string, int>> TopProduct { get; private set; }
+        public int NumProduct { get; set; } 
+        public List<KeyValuePair<string, int>> TopProduct { get;private set; }
         public List<KeyValuePair<string, int>> Stock { get; private set; }
         public List<RevenueByDate> TotalRevenues { get; private set; }
         public int NumOrder { get; set; }
         public decimal TotalRevenue { get; set; }
         public decimal TotalProfit { get; set; }
-
+        
         //Constructor
         public DBLogic()
         {
@@ -42,7 +42,7 @@ namespace Supermarket
         //3 first panels, info: Total Bill - Total Revenue - Total Profit
         private void GetNumItem()
         {
-
+            
             using (var connect = GetConnection())
             {
                 connect.Open();
@@ -59,7 +59,7 @@ namespace Supermarket
 
                     //Get total num of Dishes (selling products)
                     com.CommandText = "select count(PRO_ID) from PRODUCT";
-                    NumProduct = (int)com.ExecuteNonQuery();
+                    NumProduct = (int)com.ExecuteScalar();
 
                     //Get total num of Order (Bill)
                     com.CommandText = @"select count(B_ID) from [BILL]" +
@@ -92,8 +92,8 @@ namespace Supermarket
                     com.Parameters.Add("@enddate", System.Data.SqlDbType.DateTime).Value = enddate;
 
                     var read = com.ExecuteReader();
-                    var resultTable = new List<KeyValuePair<DateTime, int>>();
-                    while (read.Read())
+                    var resultTable = new List<KeyValuePair<DateTime,int>>();
+                    while(read.Read())
                     {
                         resultTable.Add(new KeyValuePair<DateTime, int>((DateTime)read[0], (int)read[1]));
                         TotalRevenue += (int)read[1];
@@ -101,7 +101,7 @@ namespace Supermarket
                     TotalProfit = TotalRevenue * 0.2m;
                     read.Close();
 
-
+                   
                     //Group by Hours
                     if (NumsOfDays <= 1)
                     {
@@ -116,19 +116,19 @@ namespace Supermarket
                                          }).ToList();
                     }
                     //Group by Days
-                    else if (NumsOfDays <= 30)
+                    else if(NumsOfDays <= 30)
                     {
-                        foreach (var item in resultTable)
+                        foreach(var item in resultTable)
                         {
                             TotalRevenues.Add(new RevenueByDate()
                             {
                                 Date = item.Key.ToString("dd MMM"),
                                 TotalAmount = item.Value
-                            });
+                            }); 
                         }
                     }
                     //Group by Weeks
-                    else if (NumsOfDays <= 92)
+                    else if(NumsOfDays <= 92)
                     {
                         TotalRevenues = (from orderList in resultTable
                                          group orderList by CultureInfo.CurrentCulture.Calendar.GetWeekOfYear(
@@ -141,20 +141,20 @@ namespace Supermarket
                                          }).ToList();
                     }
                     //Group by Months
-                    else if (NumsOfDays <= (365 * 2))
+                    else if(NumsOfDays <= (365*2))
                     {
                         bool isyear;
                         if (NumsOfDays <= 365)
                         {
                             isyear = true;
-                        }
+                        }    
                         else isyear = false;
                         TotalRevenues = (from orderList in resultTable
                                          group orderList by orderList.Key.ToString("MMM yyyy")
                                         into order
                                          select new RevenueByDate
-                                         {
-                                             Date = isyear ? order.Key.Substring(0, order.Key.IndexOf(" ")) : order.Key,
+                                         { 
+                                             Date = isyear ? order.Key.Substring(0, order.Key.IndexOf(" ")): order.Key,
                                              TotalAmount = order.Sum(amount => amount.Value)
                                          }).ToList();
                     }
@@ -162,13 +162,13 @@ namespace Supermarket
                     else
                     {
                         TotalRevenues = (from orderList in resultTable
-                                         group orderList by orderList.Key.ToString("yyyy")
+                                        group orderList by orderList.Key.ToString("yyyy")
                                        into order
-                                         select new RevenueByDate
-                                         {
-                                             Date = order.Key,
-                                             TotalAmount = order.Sum(amount => amount.Value)
-                                         }).ToList();
+                                        select new RevenueByDate
+                                        {
+                                            Date = order.Key,
+                                            TotalAmount = order.Sum(amount => amount.Value)
+                                        }).ToList();
                     }
                 }
             }
@@ -179,7 +179,7 @@ namespace Supermarket
         {
             TopProduct = new List<KeyValuePair<string, int>>();
             Stock = new List<KeyValuePair<string, int>>();
-
+            
             using (var connect = GetConnection())
             {
                 connect.Open();
@@ -221,7 +221,7 @@ namespace Supermarket
         public bool LoadData(DateTime startdate, DateTime enddate)
         {
             enddate = new DateTime(enddate.Year, enddate.Month, enddate.Day, enddate.Hour, enddate.Minute, 59);
-            if (startdate != this.startdate || enddate != this.enddate)
+            if(startdate != this.startdate || enddate != this.enddate)
             {
                 this.startdate = startdate;
                 this.enddate = enddate;
@@ -230,7 +230,7 @@ namespace Supermarket
                 GetNumItem();
                 GetProductAnalys();
                 GetOrderAnalys();
-                Console.WriteLine("Refresh data: {0} - {1}", startdate.ToString(), enddate.ToString());
+                Console.WriteLine("Refresh data: {0} - {1}",startdate.ToString(),enddate.ToString());
                 return true;
             }
             else

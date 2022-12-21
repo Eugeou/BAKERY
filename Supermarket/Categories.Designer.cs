@@ -28,32 +28,34 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             this.panel1 = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
-            this.panel8 = new System.Windows.Forms.Panel();
-            this.reload = new System.Windows.Forms.PictureBox();
-            this.change = new System.Windows.Forms.Button();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.panel4 = new System.Windows.Forms.Panel();
+            this.label4 = new System.Windows.Forms.Label();
+            this.description = new System.Windows.Forms.TextBox();
+            this.panel3 = new System.Windows.Forms.Panel();
+            this.label3 = new System.Windows.Forms.Label();
+            this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            this.name = new System.Windows.Forms.TextBox();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.search = new System.Windows.Forms.PictureBox();
-            this.id_name = new System.Windows.Forms.TextBox();
-            this.dataGridView = new System.Windows.Forms.DataGridView();
-            this.cate = new Supermarket.Cate();
-            this.cATEGORYBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.cATEGORYTableAdapter = new Supermarket.CateTableAdapters.CATEGORYTableAdapter();
-            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.pictureBox3 = new System.Windows.Forms.PictureBox();
+            this.id = new System.Windows.Forms.TextBox();
+            this.panel8 = new System.Windows.Forms.Panel();
+            this.save = new System.Windows.Forms.Button();
+            this.edit = new System.Windows.Forms.Button();
+            this.delete = new System.Windows.Forms.Button();
+            this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.panel1.SuspendLayout();
-            this.panel8.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.reload)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.panel4.SuspendLayout();
+            this.panel3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.panel2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.search)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.cate)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.cATEGORYBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
+            this.panel8.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
             // panel1
@@ -76,172 +78,201 @@
             this.label1.TabIndex = 2;
             this.label1.Text = "Loại sản phẩm";
             // 
-            // panel8
+            // pictureBox1
             // 
-            this.panel8.Controls.Add(this.reload);
-            this.panel8.Controls.Add(this.change);
-            this.panel8.Location = new System.Drawing.Point(651, 66);
-            this.panel8.Name = "panel8";
-            this.panel8.Size = new System.Drawing.Size(529, 95);
-            this.panel8.TabIndex = 50;
+            this.pictureBox1.Image = global::Supermarket.Properties.Resources.images__1_;
+            this.pictureBox1.Location = new System.Drawing.Point(26, 80);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(214, 145);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox1.TabIndex = 3;
+            this.pictureBox1.TabStop = false;
             // 
-            // reload
+            // panel4
             // 
-            this.reload.Image = global::Supermarket.Properties.Resources.refresh;
-            this.reload.Location = new System.Drawing.Point(470, 44);
-            this.reload.Name = "reload";
-            this.reload.Size = new System.Drawing.Size(45, 38);
-            this.reload.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.reload.TabIndex = 11;
-            this.reload.TabStop = false;
-            this.reload.Click += new System.EventHandler(this.reload_Click);
+            this.panel4.Controls.Add(this.label4);
+            this.panel4.Controls.Add(this.description);
+            this.panel4.Location = new System.Drawing.Point(45, 444);
+            this.panel4.Name = "panel4";
+            this.panel4.Size = new System.Drawing.Size(420, 95);
+            this.panel4.TabIndex = 10;
             // 
-            // change
+            // label4
             // 
-            this.change.Font = new System.Drawing.Font("Segoe UI", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.change.Location = new System.Drawing.Point(276, 43);
-            this.change.Name = "change";
-            this.change.Size = new System.Drawing.Size(188, 39);
-            this.change.TabIndex = 10;
-            this.change.Text = "Thay đổi";
-            this.change.UseVisualStyleBackColor = true;
-            this.change.Click += new System.EventHandler(this.change_Click);
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Segoe UI Semibold", 13.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Location = new System.Drawing.Point(3, 9);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(71, 30);
+            this.label4.TabIndex = 2;
+            this.label4.Text = "Mô tả";
+            // 
+            // description
+            // 
+            this.description.Font = new System.Drawing.Font("Segoe UI Semibold", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.description.Location = new System.Drawing.Point(9, 43);
+            this.description.Multiline = true;
+            this.description.Name = "description";
+            this.description.Size = new System.Drawing.Size(350, 45);
+            this.description.TabIndex = 3;
+            // 
+            // panel3
+            // 
+            this.panel3.Controls.Add(this.label3);
+            this.panel3.Controls.Add(this.pictureBox2);
+            this.panel3.Controls.Add(this.name);
+            this.panel3.Location = new System.Drawing.Point(45, 343);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(420, 95);
+            this.panel3.TabIndex = 9;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Segoe UI Semibold", 13.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Location = new System.Drawing.Point(3, 9);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(191, 30);
+            this.label3.TabIndex = 2;
+            this.label3.Text = "Tên loại sản phẩm";
+            // 
+            // pictureBox2
+            // 
+            this.pictureBox2.Image = global::Supermarket.Properties.Resources.search;
+            this.pictureBox2.Location = new System.Drawing.Point(365, 43);
+            this.pictureBox2.Name = "pictureBox2";
+            this.pictureBox2.Size = new System.Drawing.Size(45, 45);
+            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox2.TabIndex = 4;
+            this.pictureBox2.TabStop = false;
+            // 
+            // name
+            // 
+            this.name.Font = new System.Drawing.Font("Segoe UI Semibold", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.name.Location = new System.Drawing.Point(9, 43);
+            this.name.Multiline = true;
+            this.name.Name = "name";
+            this.name.Size = new System.Drawing.Size(350, 45);
+            this.name.TabIndex = 3;
             // 
             // panel2
             // 
-            this.panel2.Controls.Add(this.comboBox1);
             this.panel2.Controls.Add(this.label2);
-            this.panel2.Controls.Add(this.search);
-            this.panel2.Controls.Add(this.id_name);
-            this.panel2.Location = new System.Drawing.Point(21, 66);
+            this.panel2.Controls.Add(this.pictureBox3);
+            this.panel2.Controls.Add(this.id);
+            this.panel2.Location = new System.Drawing.Point(45, 242);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(489, 95);
-            this.panel2.TabIndex = 49;
-            // 
-            // comboBox1
-            // 
-            this.comboBox1.Font = new System.Drawing.Font("Segoe UI Semibold", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Items.AddRange(new object[] {
-            "Mã ",
-            "Tên "});
-            this.comboBox1.Location = new System.Drawing.Point(8, 43);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(135, 39);
-            this.comboBox1.TabIndex = 5;
+            this.panel2.Size = new System.Drawing.Size(420, 95);
+            this.panel2.TabIndex = 8;
             // 
             // label2
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Segoe UI Semibold", 13.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(3, 10);
+            this.label2.Location = new System.Drawing.Point(3, 9);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(105, 30);
+            this.label2.Size = new System.Drawing.Size(187, 30);
             this.label2.TabIndex = 2;
-            this.label2.Text = "Tìm kiếm";
+            this.label2.Text = "Mã loại sản phẩm";
             // 
-            // search
+            // pictureBox3
             // 
-            this.search.Image = global::Supermarket.Properties.Resources.search;
-            this.search.Location = new System.Drawing.Point(437, 43);
-            this.search.Name = "search";
-            this.search.Size = new System.Drawing.Size(45, 39);
-            this.search.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.search.TabIndex = 4;
-            this.search.TabStop = false;
-            this.search.Click += new System.EventHandler(this.search_Click);
+            this.pictureBox3.Image = global::Supermarket.Properties.Resources.search;
+            this.pictureBox3.Location = new System.Drawing.Point(365, 43);
+            this.pictureBox3.Name = "pictureBox3";
+            this.pictureBox3.Size = new System.Drawing.Size(45, 45);
+            this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox3.TabIndex = 4;
+            this.pictureBox3.TabStop = false;
             // 
-            // id_name
+            // id
             // 
-            this.id_name.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.id_name.Font = new System.Drawing.Font("Segoe UI", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.id_name.Location = new System.Drawing.Point(149, 43);
-            this.id_name.Multiline = true;
-            this.id_name.Name = "id_name";
-            this.id_name.Size = new System.Drawing.Size(282, 39);
-            this.id_name.TabIndex = 3;
+            this.id.Font = new System.Drawing.Font("Segoe UI Semibold", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.id.Location = new System.Drawing.Point(9, 43);
+            this.id.Multiline = true;
+            this.id.Name = "id";
+            this.id.Size = new System.Drawing.Size(350, 45);
+            this.id.TabIndex = 3;
             // 
-            // dataGridView
+            // panel8
             // 
-            this.dataGridView.AllowUserToAddRows = false;
-            this.dataGridView.AutoGenerateColumns = false;
-            this.dataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.dataGridViewTextBoxColumn1,
-            this.dataGridViewTextBoxColumn2,
-            this.dataGridViewTextBoxColumn3});
-            this.dataGridView.DataSource = this.cATEGORYBindingSource;
-            this.dataGridView.Location = new System.Drawing.Point(21, 198);
-            this.dataGridView.Name = "dataGridView";
-            this.dataGridView.ReadOnly = true;
-            this.dataGridView.RowHeadersWidth = 51;
-            this.dataGridView.RowTemplate.Height = 24;
-            this.dataGridView.Size = new System.Drawing.Size(1159, 561);
-            this.dataGridView.TabIndex = 51;
+            this.panel8.Controls.Add(this.save);
+            this.panel8.Controls.Add(this.edit);
+            this.panel8.Controls.Add(this.delete);
+            this.panel8.Location = new System.Drawing.Point(45, 545);
+            this.panel8.Name = "panel8";
+            this.panel8.Size = new System.Drawing.Size(420, 106);
+            this.panel8.TabIndex = 14;
             // 
-            // cate
+            // save
             // 
-            this.cate.DataSetName = "Cate";
-            this.cate.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+            this.save.Font = new System.Drawing.Font("Segoe UI", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.save.Location = new System.Drawing.Point(9, 31);
+            this.save.Name = "save";
+            this.save.Size = new System.Drawing.Size(130, 45);
+            this.save.TabIndex = 10;
+            this.save.Text = "Lưu";
+            this.save.UseVisualStyleBackColor = true;
+            this.save.Click += new System.EventHandler(this.button1_Click);
             // 
-            // cATEGORYBindingSource
+            // edit
             // 
-            this.cATEGORYBindingSource.DataMember = "CATEGORY";
-            this.cATEGORYBindingSource.DataSource = this.cate;
+            this.edit.Font = new System.Drawing.Font("Segoe UI", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.edit.Location = new System.Drawing.Point(280, 31);
+            this.edit.Name = "edit";
+            this.edit.Size = new System.Drawing.Size(130, 45);
+            this.edit.TabIndex = 12;
+            this.edit.Text = "Sửa";
+            this.edit.UseVisualStyleBackColor = true;
             // 
-            // cATEGORYTableAdapter
+            // delete
             // 
-            this.cATEGORYTableAdapter.ClearBeforeFill = true;
+            this.delete.Font = new System.Drawing.Font("Segoe UI", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.delete.Location = new System.Drawing.Point(145, 31);
+            this.delete.Name = "delete";
+            this.delete.Size = new System.Drawing.Size(130, 45);
+            this.delete.TabIndex = 11;
+            this.delete.Text = "Xóa";
+            this.delete.UseVisualStyleBackColor = true;
+            this.delete.Click += new System.EventHandler(this.button2_Click);
             // 
-            // dataGridViewTextBoxColumn1
+            // dataGridView1
             // 
-            this.dataGridViewTextBoxColumn1.DataPropertyName = "CAT_ID";
-            this.dataGridViewTextBoxColumn1.HeaderText = "Mã nguyên liệu";
-            this.dataGridViewTextBoxColumn1.MinimumWidth = 6;
-            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
-            this.dataGridViewTextBoxColumn1.ReadOnly = true;
-            this.dataGridViewTextBoxColumn1.Width = 125;
-            // 
-            // dataGridViewTextBoxColumn2
-            // 
-            this.dataGridViewTextBoxColumn2.DataPropertyName = "CAT_NAME";
-            this.dataGridViewTextBoxColumn2.HeaderText = "Tên nguyên liệu";
-            this.dataGridViewTextBoxColumn2.MinimumWidth = 6;
-            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
-            this.dataGridViewTextBoxColumn2.ReadOnly = true;
-            this.dataGridViewTextBoxColumn2.Width = 125;
-            // 
-            // dataGridViewTextBoxColumn3
-            // 
-            this.dataGridViewTextBoxColumn3.DataPropertyName = "CAT_DESCRIPTION";
-            this.dataGridViewTextBoxColumn3.HeaderText = "Mô tả";
-            this.dataGridViewTextBoxColumn3.MinimumWidth = 6;
-            this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
-            this.dataGridViewTextBoxColumn3.ReadOnly = true;
-            this.dataGridViewTextBoxColumn3.Width = 125;
+            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView1.Location = new System.Drawing.Point(538, 80);
+            this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.RowHeadersWidth = 51;
+            this.dataGridView1.RowTemplate.Height = 24;
+            this.dataGridView1.Size = new System.Drawing.Size(626, 657);
+            this.dataGridView1.TabIndex = 15;
             // 
             // Categories
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.Controls.Add(this.dataGridView);
+            this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.panel8);
+            this.Controls.Add(this.panel4);
+            this.Controls.Add(this.panel3);
             this.Controls.Add(this.panel2);
+            this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.panel1);
             this.Name = "Categories";
             this.Size = new System.Drawing.Size(1200, 800);
-            this.Load += new System.EventHandler(this.Categories_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
-            this.panel8.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.reload)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            this.panel4.ResumeLayout(false);
+            this.panel4.PerformLayout();
+            this.panel3.ResumeLayout(false);
+            this.panel3.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.search)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.cate)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.cATEGORYBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
+            this.panel8.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -250,23 +281,22 @@
 
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn cATIDDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn cATNAMEDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn cATDESCRIPTIONDataGridViewTextBoxColumn;
-        private System.Windows.Forms.Panel panel8;
-        private System.Windows.Forms.PictureBox reload;
-        private System.Windows.Forms.Button change;
+        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.Panel panel4;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.TextBox description;
+        private System.Windows.Forms.Panel panel3;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.PictureBox pictureBox2;
+        private System.Windows.Forms.TextBox name;
         private System.Windows.Forms.Panel panel2;
-        private System.Windows.Forms.ComboBox comboBox1;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.PictureBox search;
-        private System.Windows.Forms.TextBox id_name;
-        private System.Windows.Forms.DataGridView dataGridView;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
-        private System.Windows.Forms.BindingSource cATEGORYBindingSource;
-        private Cate cate;
-        private CateTableAdapters.CATEGORYTableAdapter cATEGORYTableAdapter;
+        private System.Windows.Forms.PictureBox pictureBox3;
+        private System.Windows.Forms.TextBox id;
+        private System.Windows.Forms.Panel panel8;
+        private System.Windows.Forms.Button save;
+        private System.Windows.Forms.Button edit;
+        private System.Windows.Forms.Button delete;
+        private System.Windows.Forms.DataGridView dataGridView1;
     }
 }
